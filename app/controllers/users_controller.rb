@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "基本情報を更新しました"
+      flash[:info] = "基本情報を更新しました"
+      redirect_to @user
     else
       render 'edit'
     end
@@ -33,10 +34,10 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :area)
   end
   
   def set_user
-    @user = Users.find(params[:id])
+    @user = User.find(params[:id])
   end
 end
