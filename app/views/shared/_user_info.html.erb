@@ -4,10 +4,28 @@
 <span><%= pluralize(current_user.microposts.count, "micropost") %></span>
 <ui class="nav nav-tab nav-justified">
   <li>
-    <%= link_to "followings", followings_user_path(current_user) %>
+    <%= link_to followings_user_path(current_user) do %>
+      <div class="box">
+        followings<br>
+        <%= current_user.following_users.count %>
+      </div>
+    <% end %>
   </li>
   <li>
-    <%= link_to "followers",  followers_user_path(current_user) %>
+    <%= link_to followers_user_path(current_user) do %>
+      <div class="box">
+        followers<br>
+        <%= current_user.follower_users.count %>
+      </div>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "#" do %>
+      <div class="box">
+        favorites<br>
+        0
+      </div>
+    <% end %>
   </li>
 </ui>
   

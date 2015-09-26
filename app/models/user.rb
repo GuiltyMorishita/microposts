@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
   
+  has_many :favorites, dependent: :destroy
+  
   
   # 他のユーザーをフォローする
   def follow(other_user)
@@ -33,5 +35,9 @@ class User < ActiveRecord::Base
   # あるユーザーをフォローしているかどうか？
   def following?(other_user)
     following_users.include?(other_user)
+  end
+  
+  def feed_items
+    Micropost.where(user_id: following_user_ids + [self.id])
   end
 end
