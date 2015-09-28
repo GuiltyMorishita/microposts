@@ -1,10 +1,10 @@
 <% @user.following_users.each do |u| %>
   <div class="grid-cell">
     <section class="user_info">
-    <%= link_to gravatar_for(u, size:50), u %>
-    <h1><%= u.name %></h1>
-    <span><%= link_to "view my profile", u %></span>
-    <span><%= pluralize(u.microposts.count, "micropost") %></span>
+      <%= link_to gravatar_for(u, size:50), u %>
+      <h1><%= u.name %></h1>
+      <span><%= link_to "view my profile", u %></span>
+      <span><%= pluralize(u.microposts.count, "micropost") %></span>
     </section>
   </div>
 <% end %>

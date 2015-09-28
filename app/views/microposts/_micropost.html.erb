@@ -5,12 +5,18 @@
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
     <% if micropost.favorited_by?(current_user) %>
-      <%= link_to "unfavorite", micropost_favorite_path(micropost.user) %>
+      <span class="label label-warning">
+        <%= link_to "unfavorite", micropost_favorite_path(micropost, micropost.id), :method => :delete %>
+      </span>
     <% else %>
-      <%= link_to "favorite", micropost_favorites_path(current_user) %>
+    <span class="label">
+      <%= link_to "favorite", micropost_favorites_path(micropost), :method => :post %>
+    </span>
     <% end %>
     <% if current_user == micropost.user %>
-      <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+      <span class="label">
+        <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+      </span>
     <% end %>
   </span>
 </li>

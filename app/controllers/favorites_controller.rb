@@ -14,7 +14,7 @@ class FavoritesController < ApplicationController
   end
   
   def destroy
-    @favorite = current_user.favorites.find_by!(micropost_id: params[:micropost_id])
+    @favorite = current_user.favorites.find_by(micropost_id: params[:micropost_id])
     @favorite.destroy
     redirect_to root_url
   end
