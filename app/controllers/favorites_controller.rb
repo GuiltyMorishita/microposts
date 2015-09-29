@@ -1,21 +1,13 @@
 class FavoritesController < ApplicationController
-  before_action :logged_in_user
-  
+   before_action :logged_in_user
+
   def create
-    @micropost = Micropost.find(params[:micropost_id])
-    @favorite = current_user.favorites.build(micropost: @micropost)
-    
-    if @favorite.save
-      flash[:success] = "Micropost favorited"
-      redirect_to root_url
-    else
-      redirect_to root_url
-    end
+    @micropost = Micropost.find(params[:favorited_id])
+    current_user.favorite(@micropost)
   end
-  
+
   def destroy
-    @favorite = current_user.favorites.find_by(micropost_id: params[:micropost_id])
-    @favorite.destroy
-    redirect_to root_url
+    @micropost = current_user.favoritings.find(params[:id]).favorited
+    current_user.unfavorite(@micropost)
   end
 end

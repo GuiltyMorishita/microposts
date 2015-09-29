@@ -5,8 +5,4 @@ class Micropost < ActiveRecord::Base
   validates :content, presence:true, length: { in: 1..140 }
   
   default_scope -> { order(created_at: :desc) }
-  
-  def favorited_by? user
-    favorites.where(user: user.id).exists?
-  end
 end

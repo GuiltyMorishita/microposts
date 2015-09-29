@@ -4,19 +4,14 @@
   <span class="content"><%= micropost.content %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if micropost.favorited_by?(current_user) %>
-      <span class="label label-warning">
-        <%= link_to "unfavorite", micropost_favorite_path(micropost, micropost.id), :method => :delete %>
-      </span>
-    <% else %>
-    <span class="label">
-      <%= link_to "favorite", micropost_favorites_path(micropost), :method => :post %>
-    </span>
-    <% end %>
     <% if current_user == micropost.user %>
       <span class="label">
         <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
       </span>
+    <% end %>
+    <%= form_for(current_user.favoritings.build) do |f| %>
+      <div><%= hidden_field_tag :favorited_id, @micropost.id %></div>
+      <%= f.submit "Favorite", class: "btn btn-primary" %>
     <% end %>
   </span>
 </li>

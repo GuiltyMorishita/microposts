@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   resources :users, except: [:index, :new] do 
     get     'followings', on: :member
     get     'followers',  on: :member
-    get     :favorites,   on: :member
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts do
-    resources :favorites, only: [:create, :destroy]
+    get     'favoriting', on: :member
   end
   resources :relationships, only: [:create, :destroy]
+  resources :favorites, only: [:create, :destroy]
 end
