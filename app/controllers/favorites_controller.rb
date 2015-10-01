@@ -12,6 +12,6 @@ class FavoritesController < ApplicationController
     #@micropost = current_user.user_favorites.find(params[:id]).micropost
     @micropost = Micropost.find(params[:id])
     current_user.unfavorite(@micropost)
-    redirect_to root_path
+    redirect_to request.referrer || root_url
   end
 end

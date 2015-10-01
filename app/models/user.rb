@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     Micropost.where(user_id: following_user_ids + [self.id])
   end
   
+  def feed_favo_items
+    Micropost.where(user_id: favoriting_microposts_ids)
+  end
+  
   # micropostをお気に入りする
   def favorite(micropost)
     user_favorites.create(micropost_id: micropost.id)
