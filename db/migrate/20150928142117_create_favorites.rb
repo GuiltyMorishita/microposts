@@ -1,12 +1,12 @@
 class CreateFavorites < ActiveRecord::Migration
   def change
     create_table :favorites do |t|
-      t.references :favoriter, index: true
-      t.references :favorited, index: true
+      t.references :user, index: true
+      t.references :micropost, index: true
 
       t.timestamps null: false
       
-      t.index [:favoriter_id, :favorited_id], unique: true
+      t.index [:user_id, :micropost_id], unique: true
     end
   end
 end

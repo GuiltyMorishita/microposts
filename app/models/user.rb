@@ -19,10 +19,11 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
   
-  has_many :favoritings, class_name:  "Favorite",
-                         foreign_key: "favoriter_id",
-                         dependent:   :destroy
-  has_many :favoriting_microposts, through: :favoritings, source: :favorited
+  has_many :user_favorites, class_name:   "Favorite",
+                            foreign_key:  "user_id",
+                            dependent: :destroy
+  has_many :favoriting_microposts, through: :user_favorites, source: :micropost
+  
   
   # 他のユーザーをフォローする
   def follow(other_user)
@@ -43,14 +44,14 @@ class User < ActiveRecord::Base
     Micropost.where(user_id: following_user_ids + [self.id])
   end
   
-   # micropostをお気に入りする
+  # micropostをお気に入りする
   def favorite(micropost)
-    favoritings.create(favorited_id: micropost.id)
+    user_favorites.create(micropost_id: micropost.id)
   end
 
   # お気に入りしているmicropostをお気に入りから外す
   def unfavorite(micropost)
-    favoritings.find_by(favorited_id: micropost.id).destroy
+    user_favorites.find_by(micropost_id: micropost.id).destroy
   end
 
   # あるmicropostをお気に入りしているかどうか？

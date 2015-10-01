@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts do
-    get     'favoriting', on: :member
+    get     'favoriting_microposts', on: :member
   end
   resources :relationships, only: [:create, :destroy]
   resources :favorites, only: [:create, :destroy]
